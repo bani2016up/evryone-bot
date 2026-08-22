@@ -1,7 +1,7 @@
 import re
 from collections.abc import Iterable
 
-TRIGGER_PATTERN = re.compile(r"(?<!\w)@evryone(?!\w)", re.IGNORECASE)
+TRIGGER_PATTERN = re.compile(r"(?<!\w)@(?:evryone|evry1bot)(?!\w)", re.IGNORECASE)
 USERNAME_PATTERN = re.compile(r"@[A-Za-z0-9_]{5,32}")
 TELEGRAM_MESSAGE_LIMIT = 4096
 

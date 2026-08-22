@@ -1,7 +1,7 @@
 # Evryone Bot
 
 A small Telegram group bot that replies with mentions of known group members when
-a message contains `@evryone`.
+a message contains `@evryone` or `@Evry1bot`.
 
 ## How it works
 

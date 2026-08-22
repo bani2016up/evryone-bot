@@ -8,7 +8,10 @@ from evryone_bot.mentions import contains_trigger, mention_chunks, parse_usernam
     [
         ("Hello @evryone", True),
         ("@EVRYONE: update", True),
+        ("Hello @Evry1bot", True),
+        ("Hello @EVRY1BOT", True),
         ("hello @evryone_else", False),
+        ("hello @Evry1bot_extra", False),
         (None, False),
     ],
 )
