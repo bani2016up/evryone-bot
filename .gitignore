@@ -1,0 +1,13 @@
+.env
+.venv/
+*.db
+*.db-shm
+*.db-wal
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.py[cod]
+.DS_Store
+.cockpit/
+.opencode/
+process-compose.yaml

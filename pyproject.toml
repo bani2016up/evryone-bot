@@ -1,0 +1,36 @@
+[project]
+name = "evryone-bot"
+version = "0.1.0"
+description = "Telegram group bot that mentions known members when @evryone is posted"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiogram>=3.22.0,<4",
+    "aiosqlite>=0.21.0,<1",
+    "python-dotenv>=1.1.1,<2",
+]
+
+[project.scripts]
+evryone-bot = "evryone_bot.main:run"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.1,<9",
+    "pytest-asyncio>=1.1.0,<2",
+    "ruff>=0.12.10,<1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
