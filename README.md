@@ -1,7 +1,7 @@
 # Evryone Bot
 
 A small Telegram group bot that replies with mentions of known group members when
-a message contains `@evryone` or `@Evry1bot`.
+a message contains `@everyone` or `@Evry1bot`.
 
 ## How it works
 
@@ -46,7 +46,7 @@ Add the bot to a group. As members talk, their current usernames are persisted
 in `evryone.db`. Post a message such as:
 
 ```text
-Please review this, @evryone
+Please review this, @everyone
 ```
 
 The bot replies with a comma-separated list such as:

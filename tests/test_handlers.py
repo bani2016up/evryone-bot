@@ -36,7 +36,7 @@ async def test_trigger_tracks_sender_and_replies() -> None:
     repository = AsyncMock()
     repository.usernames.return_value = ["alice1", "bob22"]
     callback = create_router(repository).message.handlers[1].callback
-    message = make_message(text="Hello @evryone")
+    message = make_message(text="Hello @everyone")
 
     with patch.object(Message, "answer", new_callable=AsyncMock) as answer:
         await callback(message)

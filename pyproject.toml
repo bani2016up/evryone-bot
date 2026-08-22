@@ -1,7 +1,7 @@
 [project]
 name = "evryone-bot"
 version = "0.1.0"
-description = "Telegram group bot that mentions known members when @evryone is posted"
+description = "Telegram group bot that mentions known members when @everyone is posted"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [

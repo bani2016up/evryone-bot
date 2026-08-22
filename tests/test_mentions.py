@@ -6,11 +6,12 @@ from evryone_bot.mentions import contains_trigger, mention_chunks, parse_usernam
 @pytest.mark.parametrize(
     ("text", "expected"),
     [
-        ("Hello @evryone", True),
-        ("@EVRYONE: update", True),
+        ("Hello @everyone", True),
+        ("@EVERYONE: update", True),
         ("Hello @Evry1bot", True),
         ("Hello @EVRY1BOT", True),
-        ("hello @evryone_else", False),
+        ("hello @everyone_else", False),
+        ("hello @evryone", False),
         ("hello @Evry1bot_extra", False),
         (None, False),
     ],
