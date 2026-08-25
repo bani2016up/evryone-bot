@@ -21,7 +21,7 @@ def make_message(**values: object) -> Message:
 
 async def test_add_users_command_registers_usernames() -> None:
     repository = AsyncMock()
-    callback = create_router(repository).message.handlers[0].callback
+    callback = create_router(repository, "Custom message").message.handlers[0].callback
     message = make_message(text="/evAddUsers @bob22, @carol3")
     command = CommandObject(prefix="/", command="evAddUsers", args="@bob22, @carol3")
 
@@ -35,7 +35,7 @@ async def test_add_users_command_registers_usernames() -> None:
 async def test_trigger_tracks_sender_and_replies() -> None:
     repository = AsyncMock()
     repository.usernames.return_value = ["alice1", "bob22"]
-    callback = create_router(repository).message.handlers[1].callback
+    callback = create_router(repository, "Custom message").message.handlers[1].callback
     message = make_message(text="Hello @everyone")
 
     with patch.object(Message, "answer", new_callable=AsyncMock) as answer:
@@ -45,9 +45,30 @@ async def test_trigger_tracks_sender_and_replies() -> None:
     answer.assert_awaited_once_with("@alice1, @bob22")
 
 
+async def test_special_user_receives_custom_message_instead_of_mentions() -> None:
+    repository = AsyncMock()
+    callback = create_router(repository, "Custom message").message.handlers[1].callback
+    special_user = User(
+        id=20,
+        is_bot=False,
+        first_name="Dima",
+        username="D1FFIC00LT",
+    )
+    message = make_message(
+        from_user=special_user,
+        text="Hello @Evry1Bot",
+    )
+
+    with patch.object(Message, "answer", new_callable=AsyncMock) as answer:
+        await callback(message)
+
+    answer.assert_awaited_once_with("Custom message")
+    repository.usernames.assert_not_awaited()
+
+
 async def test_migration_and_departure_are_persisted() -> None:
     repository = AsyncMock()
-    callback = create_router(repository).message.handlers[1].callback
+    callback = create_router(repository, "Custom message").message.handlers[1].callback
     departed = User(id=20, is_bot=False, first_name="Bob", username="bob22")
     message = make_message(
         text=None,
@@ -63,7 +84,7 @@ async def test_migration_and_departure_are_persisted() -> None:
 
 async def test_migrate_to_message_does_not_recreate_old_chat_member() -> None:
     repository = AsyncMock()
-    callback = create_router(repository).message.handlers[1].callback
+    callback = create_router(repository, "Custom message").message.handlers[1].callback
     message = make_message(text=None, migrate_to_chat_id=-2002)
 
     await callback(message)

@@ -28,6 +28,7 @@ Usernames must start with `@`, use letters, numbers, or underscores, and contain
 
 ```dotenv
 TELEGRAM_API_KEY=your-token-here
+DIMA_MSG="Custom reply for @d1ffic00lt"
 ```
 
 5. Install dependencies and start the bot:
@@ -58,6 +59,9 @@ The bot replies with a comma-separated list such as:
 Long member lists are split across messages to stay within Telegram's message
 size limit. If the bot has not observed or manually registered any usernames,
 it does not send an empty reply.
+
+When `@d1ffic00lt` sends either trigger, the bot sends `DIMA_MSG` instead of the
+member list.
 
 ## Development
 

@@ -8,9 +8,10 @@ from evryone_bot.mentions import contains_trigger, mention_chunks, parse_usernam
 from evryone_bot.repository import MemberRepository
 
 GROUP_CHAT_TYPES = {ChatType.GROUP, ChatType.SUPERGROUP}
+CUSTOM_MESSAGE_USERNAME = "d1ffic00lt"
 
 
-def create_router(repository: MemberRepository) -> Router:
+def create_router(repository: MemberRepository, dima_msg: str) -> Router:
     router = Router()
 
     @router.message(F.text, Command("evAddUsers", ignore_case=True))
@@ -66,6 +67,14 @@ def create_router(repository: MemberRepository) -> Router:
 
         text = message.text or message.caption
         if not contains_trigger(text):
+            return
+
+        if (
+            message.from_user
+            and message.from_user.username
+            and message.from_user.username.casefold() == CUSTOM_MESSAGE_USERNAME
+        ):
+            await message.answer(dima_msg)
             return
 
         for chunk in mention_chunks(await repository.usernames(message.chat.id)):
