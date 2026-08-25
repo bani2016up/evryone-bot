@@ -14,7 +14,7 @@ async def main() -> None:
     await repository.initialize()
 
     dispatcher = Dispatcher()
-    dispatcher.include_router(create_router(repository, settings.dima_msg))
+    dispatcher.include_router(create_router(repository))
 
     async with Bot(settings.telegram_api_key) as bot:
         await dispatcher.start_polling(bot)
