@@ -68,3 +68,8 @@ uv run pytest
 uv run ruff check .
 uv run ruff format --check .
 ```
+
+## Docker deployment
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for server setup, token configuration,
+verification, and startup instructions.
