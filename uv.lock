@@ -181,6 +181,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "aiogram" },
+    { name = "aiohttp" },
     { name = "aiosqlite" },
     { name = "python-dotenv" },
 ]
@@ -195,6 +196,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "aiogram", specifier = ">=3.22.0,<4" },
+    { name = "aiohttp", specifier = ">=3.9.0,<4" },
     { name = "aiosqlite", specifier = ">=0.21.0,<1" },
     { name = "python-dotenv", specifier = ">=1.1.1,<2" },
 ]

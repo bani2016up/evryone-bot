@@ -65,3 +65,26 @@ No application proxy or inbound Nginx route is needed.
 
 In BotFather, disable privacy mode for this bot so it can observe regular group
 messages. Stop any other polling instance of the same bot before startup.
+
+## Health and readiness
+
+Compose enables a private HTTP server on `127.0.0.1:8080` inside the container.
+No port is published on the host. Outside Docker, set `HEALTH_PORT` to enable
+this server; it is disabled when the variable is unset.
+
+- `GET /healthz` returns HTTP 200 when the application event loop responds.
+- `GET /readyz` returns HTTP 200 only after a successful Telegram `getUpdates`
+  request, provided the last successful poll is no more than 90 seconds old
+  and no subsequent poll has failed. Startup, polling errors, stale polling,
+  and shutdown return HTTP 503 with a non-sensitive reason.
+
+The readiness check observes existing polling traffic and sends no additional
+Telegram requests. It does not verify database writes or message delivery.
+Compose checks readiness every 15 seconds and marks the container unhealthy
+after three failures. Uptime Kuma can consume this Docker health status without
+exposing the HTTP server or granting monitoring access to the Telegram token.
+
+```bash
+docker compose exec bot python -c \
+  "import urllib.request; print(urllib.request.urlopen('http://127.0.0.1:8080/readyz').read().decode())"
+```
